@@ -64,11 +64,11 @@ public class PlayActivity extends AppCompatActivity {
             }
             Long startTime = this.getStartTime();
 
-            Double gameDuration = (double) Math.round((currentTime - startTime) / 10000000.0) / 100.0;
+            Double gameDuration = (double) (currentTime - startTime) / 1000000000.0;
 
             this.setButtonsClicked(1);
 
-            Toast.makeText(getApplicationContext(), "GAME LASTED " + gameDuration.toString() + "s", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "GAME LASTED " + (Math.round(gameDuration * 100) / 100.0) + "s", Toast.LENGTH_LONG).show();
 
             Intent myIntent = new Intent(this, HomeActivity.class);
             myIntent.putExtra("time", gameDuration); //Optional parameters
