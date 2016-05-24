@@ -15,6 +15,7 @@ public class PlayActivity extends AppCompatActivity {
     private int buttonsClicked = 1;
     private long startTime;
     private long endTime = 0;
+    private static String TIME_KEY = "net.allypost.touchthabutton.LeaderboardActivity.gameTime";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,10 @@ public class PlayActivity extends AppCompatActivity {
 
     public int getButtonsClicked() {
         return this.buttonsClicked;
+    }
+
+    public static String getTimeKey() {
+        return TIME_KEY;
     }
 
     public int setButtonsClicked(Integer i) {
@@ -82,7 +87,7 @@ public class PlayActivity extends AppCompatActivity {
 
         int count = this.incrementButtonsClicked();
 
-        int remaining = 9 - count;
+        int remaining = 11 - count;
 
         button.setText("" + remaining);
     }
@@ -137,7 +142,9 @@ public class PlayActivity extends AppCompatActivity {
 
         Intent myIntent = new Intent(this, LeaderboardActivity.class);
 
-        myIntent.putExtra("time", gameDuration); //Optional parameters
+        String intentDataKey = this.getTimeKey();
+
+        myIntent.putExtra(intentDataKey, gameDuration); //Optional parameters
 
         startActivity(myIntent);
         finish();
