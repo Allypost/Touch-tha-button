@@ -14,8 +14,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        String android_id = Settings.Secure.getString(this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
+        String android_id = this.getAndroidID();
 
         System.out.println("DEVICE-ID:\t" + android_id);
     }
@@ -34,5 +33,10 @@ public class HomeActivity extends AppCompatActivity {
     public void exitApp(View view) {
         finish();
         System.exit(0);
+    }
+
+    public String getAndroidID() {
+        return Settings.Secure.getString(this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
     }
 }

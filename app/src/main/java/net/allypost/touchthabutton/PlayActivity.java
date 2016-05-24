@@ -47,39 +47,50 @@ public class PlayActivity extends AppCompatActivity {
         return this.startTime;
     }
 
+    public long getEndTime() {
+        return this.endTime;
+    }
+
+    public void setEndTime(long time) {
+        this.endTime = time;
+    }
+
+    public long calculateEndTime() {
+        Long currentTime = this.getEndTime();
+
+        if (this.endTime == 0) {
+            currentTime = System.nanoTime();
+            this.endTime = currentTime;
+        }
+
+        return currentTime;
+    }
+
     public void startGame(View view) {
         Button button = (Button) view;
 
         if (this.getButtonsClicked() == 1) {
-            this.setStartTime(System.nanoTime());
-            Toast.makeText(getApplicationContext(), "START GAME", Toast.LENGTH_SHORT).show();
+            this.initGame();
         }
 
         if (this.getButtonsClicked() == 10) {
-            Long currentTime = this.endTime;
-            if (this.endTime == 0) {
-                currentTime = System.nanoTime();
-            }
-            Long startTime = this.getStartTime();
-
-            Double gameDuration = (double) (currentTime - startTime) / 1000000000.0;
-
-            this.setButtonsClicked(1);
-
-            Toast.makeText(getApplicationContext(), "GAME LASTED " + (Math.round(gameDuration * 100) / 100.0) + "s", Toast.LENGTH_LONG).show();
-
-            Intent myIntent = new Intent(this, HomeActivity.class);
-            myIntent.putExtra("time", gameDuration); //Optional parameters
-            startActivity(myIntent);
-            finish();
+            this.finishGame();
             return;
         }
 
+        this.moveButtonRandomly(button);
+
+        int count = this.incrementButtonsClicked();
+
+        int remaining = 9 - count;
+
+        button.setText("" + remaining);
+    }
+
+    private void moveButtonRandomly(Button button) {
         Random r = new Random();
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+        Point size = this.getDisplaySize();
 
         int width = size.x;
         int height = size.y;
@@ -89,12 +100,47 @@ public class PlayActivity extends AppCompatActivity {
 
         button.setX(x);
         button.setY(y);
+    }
 
-        int count = this.incrementButtonsClicked();
+    private Point getDisplaySize() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
 
-        int remaining = 9 - count;
+        return size;
+    }
 
-        button.setText("" + remaining);
+    private void initGame() {
+        this.setStartTime(System.nanoTime());
+        Toast.makeText(getApplicationContext(), "START GAME", Toast.LENGTH_SHORT).show();
+    }
+
+    private void finishGame() {
+        double gameDuration = this.calculateGameTime();
+
+        Toast.makeText(getApplicationContext(), "GAME LASTED " + (Math.round(gameDuration * 100) / 100.0) + "s", Toast.LENGTH_LONG).show();
+
+        this.transferToLeaderboard();
+    }
+
+    private double calculateGameTime() {
+        long currentTime = this.calculateEndTime();
+        long startTime = this.getStartTime();
+
+        double gameDuration = (double) (currentTime - startTime) / 1000000000.0;
+
+        return gameDuration;
+    }
+
+    private void transferToLeaderboard() {
+        double gameDuration = this.calculateGameTime();
+
+        Intent myIntent = new Intent(this, LeaderboardActivity.class);
+
+        myIntent.putExtra("time", gameDuration); //Optional parameters
+
+        startActivity(myIntent);
+        finish();
     }
 
 }
