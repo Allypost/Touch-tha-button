@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gamePlane"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -8,21 +9,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:id="@+id/gamePlane"
     tools:context="net.allypost.touchthabutton.PlayActivity">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:text="Start"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="120dp"
         android:width="85dp"
         android:height="55dp"
-        android:layout_marginStart="120dp"
-        android:textColor="@color/colorPrimary"
+        android:background="@color/colorAccent"
+        android:clickable="true"
         android:onClick="startGame"
-        android:layout_gravity="center_vertical"
-        android:clickable="true">
-    </Button>
+        android:text="Start"
+        android:textColor="@color/colorPrimary"></Button>
 
 </LinearLayout>

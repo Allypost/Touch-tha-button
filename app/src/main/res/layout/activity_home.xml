@@ -43,15 +43,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:background="@color/colorPrimaryLight"
+            android:onClick="playGame"
             android:paddingBottom="20dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="20dp"
             android:text="@string/home_start"
             android:textColor="#fff"
-            android:textSize="30sp"
-            android:onClick="playGame"
-            />
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/buttonLeaderboard"
@@ -61,6 +60,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimaryLight"
+            android:onClick="showLeaderboard"
             android:paddingBottom="20dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
@@ -77,13 +77,13 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimaryLight"
+            android:onClick="exitApp"
             android:paddingBottom="20dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="20dp"
             android:text="@string/home_exit"
             android:textColor="#fff"
-            android:textSize="30sp"
-            android:onClick="exitApp"/>
+            android:textSize="30sp" />
     </RelativeLayout>
 </LinearLayout>

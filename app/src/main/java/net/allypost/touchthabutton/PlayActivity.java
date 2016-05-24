@@ -70,9 +70,10 @@ public class PlayActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "GAME LASTED " + gameDuration.toString() + "s", Toast.LENGTH_LONG).show();
 
-            Intent myIntent = new Intent(PlayActivity.this, HomeActivity.class);
+            Intent myIntent = new Intent(this, HomeActivity.class);
             myIntent.putExtra("time", gameDuration); //Optional parameters
-            PlayActivity.this.startActivity(myIntent);
+            startActivity(myIntent);
+            finish();
             return;
         }
 

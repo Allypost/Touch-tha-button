@@ -15,9 +15,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void playGame(View view) {
-        Intent myIntent = new Intent(HomeActivity.this, PlayActivity.class);
+        Intent myIntent = new Intent(this, PlayActivity.class);
 //        myIntent.putExtra("key", "PASTA"); //Optional parameters
-        HomeActivity.this.startActivity(myIntent);
+        startActivity(myIntent);
+        finish();
     }
 
     public void showLeaderboard(View view) {
@@ -26,5 +27,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public void exitApp(View view) {
         finish();
+        System.exit(0);
     }
 }
