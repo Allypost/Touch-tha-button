@@ -7,10 +7,77 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context="net.allypost.touchthabutton.HomeActivity">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="@string/home_header"
+            android:id="@+id/textView"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:textAlignment="center"
+            android:textSize="45sp"
+            android:textColor="@color/colorAccent"
+            android:shadowDx="10"
+            android:shadowDy="10"
+            android:shadowRadius="5"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/buttonStart"
+            android:text="@string/home_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingTop="20dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="20dp"
+            android:textSize="30sp"
+            android:textColor="#fff"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="50dp"
+            android:background="@color/colorPrimaryLight"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/buttonLeaderboard"
+            android:text="@string/home_leaderboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingTop="20dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="20dp"
+            android:textSize="30sp"
+            android:textColor="#fff"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryLight"
+            android:layout_below="@+id/buttonStart"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:text="@string/home_exit"
+            android:id="@+id/buttonExit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingTop="20dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="20dp"
+            android:textSize="30sp"
+            android:textColor="#fff"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryLight"
+            android:layout_below="@+id/buttonLeaderboard"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 </RelativeLayout>

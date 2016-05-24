@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Touch Tha Button</string>
+    <string name="app_name">Gumb igrica</string>
+
+    <!-- <HOME> -->
+    <string name="home_header">GUMB IGRICA</string>
+    <string name="home_start">Igraj</string>
+    <string name="home_leaderboard">Ljestvice</string>
+    <string name="home_exit">Izlaz</string>
+    <!-- </HOME> -->
+
 </resources>
