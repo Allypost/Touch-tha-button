@@ -8,4 +8,7 @@
     <string name="home_exit">Izlaz</string>
     <!-- </HOME> -->
 
+
+    <!-- SMTH -->
+    <string name="title_activity_display_message">My Message</string>
 </resources>

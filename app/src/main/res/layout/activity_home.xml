@@ -1,83 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/colorPrimary"
     tools:context="net.allypost.touchthabutton.HomeActivity">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="@string/home_header"
-            android:id="@+id/textView"
-            android:layout_marginTop="40dp"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:paddingTop="10dp"
+            android:layout_marginTop="40dp"
             android:paddingBottom="20dp"
-            android:textAlignment="center"
-            android:textSize="45sp"
-            android:textColor="@color/colorAccent"
+            android:paddingTop="10dp"
+            android:shadowColor="@color/colorPrimaryDark"
             android:shadowDx="10"
             android:shadowDy="10"
             android:shadowRadius="5"
-            android:shadowColor="@color/colorPrimaryDark"
+            android:text="@string/home_header"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="45sp"
             android:textStyle="bold" />
+
         <Button
             android:id="@+id/buttonStart"
-            android:text="@string/home_start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:paddingTop="20dp"
-            android:paddingRight="30dp"
-            android:paddingBottom="20dp"
-            android:textSize="30sp"
-            android:textColor="#fff"
             android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:background="@color/colorPrimaryLight"
-            android:layout_centerHorizontal="true" />
+            android:paddingBottom="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="20dp"
+            android:text="@string/home_start"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:onClick="playGame"
+            />
 
         <Button
             android:id="@+id/buttonLeaderboard"
-            android:text="@string/home_leaderboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:paddingTop="20dp"
-            android:paddingRight="30dp"
-            android:paddingBottom="20dp"
-            android:textSize="30sp"
-            android:textColor="#fff"
+            android:layout_below="@+id/buttonStart"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimaryLight"
-            android:layout_below="@+id/buttonStart"
-            android:layout_centerHorizontal="true" />
+            android:paddingBottom="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="20dp"
+            android:text="@string/home_leaderboard"
+            android:textColor="#fff"
+            android:textSize="30sp" />
 
         <Button
-            android:text="@string/home_exit"
             android:id="@+id/buttonExit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:paddingTop="20dp"
-            android:paddingRight="30dp"
-            android:paddingBottom="20dp"
-            android:textSize="30sp"
-            android:textColor="#fff"
+            android:layout_below="@+id/buttonLeaderboard"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimaryLight"
-            android:layout_below="@+id/buttonLeaderboard"
-            android:layout_centerHorizontal="true" />
+            android:paddingBottom="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="20dp"
+            android:text="@string/home_exit"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:onClick="exitApp"/>
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>
