@@ -1,11 +1,9 @@
 package net.allypost.touchthabutton;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
@@ -94,58 +92,9 @@ public class PlayActivity extends AppCompatActivity {
 
         int count = this.incrementButtonsClicked();
 
-        int remaining = 10 - count + 1;
+        int remaining = 9 - count;
 
         button.setText("" + remaining);
-
-
-        System.out.println("\n\n" +
-                "\nX:\t" + x +
-                "\nY:\t" + y +
-                "\nDIM:\t" + width + "x" + height +
-                "\nCNT:\t" + count +
-                "\n\n\n");
-    }
-
-    private float dpToPx(Integer dp) {
-        Resources resources = getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return px;
-    }
-
-    public Button addButton() {
-        Float buttonWidth = this.dpToPx(85);
-        Float buttonHeight = this.dpToPx(55);
-        Integer buttonNumber = this.incrementButtonsClicked();
-
-        Button newButton = new Button(this);
-        newButton.setText("Button " + buttonNumber);
-        newButton.setId(4000);
-        newButton.setWidth(Math.round(buttonWidth));
-        newButton.setHeight(Math.round(buttonHeight));
-        newButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-        newButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-
-        newButton.setOnClickListener(new HandleClick());
-        return newButton;
-    }
-
-    private class HandleClick implements View.OnClickListener {
-
-        public void onClick(View view) {
-            /*Button thisButton = (Button) view;
-
-            thisButton.setVisibility(View.INVISIBLE);
-
-            LinearLayout ll = (LinearLayout) findViewById(R.id.gamePlane);
-
-            Button newButton = this.addButton();
-
-            ll.addView(newButton);*/
-
-            Toast.makeText(getApplicationContext(), "BUTTON CLICKED", Toast.LENGTH_SHORT).show();
-        }
     }
 
 }
