@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -31,13 +33,22 @@ public class LeaderboardActivity extends AppCompatActivity {
         double gameDuration = this.getGameDuration(savedInstanceState);
 
         if (gameDuration != 0.0) {
-            Toast.makeText(getApplicationContext(), "GAME LASTED " + (Math.round(gameDuration * 100) / 100.0) + "s", Toast.LENGTH_LONG).show();
+            System.out.println("|>\t\tCALCULATED-POSITIONS:");
+            System.out.println("|-|>\t\t\tPOSITION:\t" + this.getTimePosition(gameDuration));
+
+            String niceDurationText = ordinal(this.getTimePosition(gameDuration) + 1);
+
             this.saveLeaderboardEntry(gameDuration);
-//            System.out.println("\t\t\tDB:\t" + );
+
+            Toast.makeText(getApplicationContext(), "You got " + niceDurationText + " place", Toast.LENGTH_LONG).show();
         }
 
-        this.getLeaderboard();
+        List<Hashtable> leaderboard = this.getLeaderboard();
 
+        System.out.println("\t\t<-->");
+        System.out.println("\t\tREGULAR-LEADERBOARD:\t" + leaderboard);
+        System.out.println("\t\t SORTED-LEADERBOARD:\t" + this.sortLeaderboard(leaderboard));
+        System.out.println("\t\t<-->");
     }
 
     private double getGameDuration(Bundle savedInstanceState) {
@@ -59,7 +70,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         return getFilesDir().toString();
     }
 
-    private void saveLeaderboardEntry(double gameDuration) {
+    private String saveLeaderboardEntry(double gameDuration) {
         String filename = "leaderboard.db";
         String dbEntry = this.generateDbEntry(gameDuration);
         FileOutputStream outputStream;
@@ -71,21 +82,57 @@ public class LeaderboardActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return this.getIdFromEntry(dbEntry);
     }
 
-    private void getLeaderboard() {
+    private List<Hashtable> getLeaderboard() {
+        List<Hashtable> lines = null;
+
         try {
             String location = this.getStorageLocation() + "/leaderboard.db";
             InputStream inStream = new FileInputStream(location);
             InputStreamReader inReader = new InputStreamReader(inStream);
             BufferedReader buffReader = new BufferedReader(inReader);
 
-            List<Hashtable> lines = this.parseDbEntries(buffReader);
+            lines = this.parseDbEntries(buffReader);
 
-            System.out.println("\t\t\t\t\tLEADERBOARD" + lines.toString());
+            return lines;
         } catch (java.io.FileNotFoundException e) {
             e.printStackTrace();
         }
+        return lines;
+    }
+
+    private List<Hashtable> getSortedLeaderboard() {
+        List<Hashtable> unsortedLeaderboard = this.getLeaderboard();
+
+        return this.sortLeaderboard(unsortedLeaderboard);
+    }
+
+    private List<Hashtable> sortLeaderboard(List<Hashtable> leaderboard) {
+        Collections.sort(leaderboard, new Comparator<Hashtable>() {
+            @Override
+            public int compare(Hashtable lhs, Hashtable rhs) {
+                Double l = (double) lhs.get("duration");
+                Double r = (double) rhs.get("duration");
+
+                if (l < r)
+                    return -1;
+                if (l > r)
+                    return 1;
+
+                return 0;
+            }
+        });
+
+        return leaderboard;
+    }
+
+    private String getIdFromEntry(String dbEntry) {
+        String[] list = dbEntry.split("\\|");
+
+        return list[0];
     }
 
     private Hashtable parseDbEntry(String line) {
@@ -133,16 +180,43 @@ public class LeaderboardActivity extends AppCompatActivity {
         return lines;
     }
 
-    private int getTimePosition(String id) {
+    private int getDbEntry(String id) {
+        List<Hashtable> gamesList = this.getLeaderboard();
 
+        for (int i = 0; i < gamesList.size(); i++) {
+            Hashtable entry = gamesList.get(i);
+            String entryID = entry.get("id").toString();
 
-        return 5;
+            if (id.equals(entryID))
+                return i;
+        }
+
+        return -1;
     }
 
     private int getTimePosition(double gameTime) {
+        List<Double> gamesList = this.getTimePositionList();
 
+        for (int i = 0; i < gamesList.size(); i++) {
+            Double entryGameTime = gamesList.get(i);
+            if (Math.min(entryGameTime, gameTime) == gameTime)
+                return i;
+        }
 
-        return 3;
+        return gamesList.size() - 1;
+    }
+
+    private List<Double> getTimePositionList() {
+        List<Double> gameTimes = new ArrayList<>();
+        List<Hashtable> gamesList = this.getLeaderboard();
+        for (int i = 0; i < gamesList.size(); i++) {
+            Hashtable entry = gamesList.get(i);
+            double entryGameTime = (double) entry.get("duration");
+
+            gameTimes.add(entryGameTime);
+        }
+        Collections.sort(gameTimes);
+        return gameTimes;
     }
 
     private String generateDbEntry(Double gameDuration) {
@@ -168,5 +242,18 @@ public class LeaderboardActivity extends AppCompatActivity {
     public String getAndroidID() {
         return Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+    }
+
+    public static String ordinal(int i) {
+        String[] sufixes = new String[]{"th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"};
+        switch (i % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return i + "th";
+            default:
+                return i + sufixes[i % 10];
+
+        }
     }
 }
