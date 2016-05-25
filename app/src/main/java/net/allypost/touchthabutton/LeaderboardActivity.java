@@ -14,8 +14,10 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public class LeaderboardActivity extends AppCompatActivity {
 
@@ -78,13 +80,16 @@ public class LeaderboardActivity extends AppCompatActivity {
 
             String line;
 
-            List<String> lines = new ArrayList<>();
+            List<Hashtable> lines = new ArrayList<>();
 
             do {
-                line = buffReader.readLine();
 
-                lines.add(line);
-                System.out.println("\t\t\t\t\t\tLEADERBOARD-ENTRY:\t" + line);
+                line = buffReader.readLine();
+                if (line != null) {
+                    Hashtable entry = this.parseDbEntry(line);
+                    lines.add(entry);
+                }
+
             } while (line != null);
 
             if (lines.get(lines.size() - 1) == null)
@@ -98,16 +103,43 @@ public class LeaderboardActivity extends AppCompatActivity {
         }
     }
 
-    private int getTimePosition(double gameDuration) {
+    private Hashtable parseDbEntry(String line) {
+        Hashtable entry = new Hashtable();
+
+        /*
+        * parts[0] -> ID
+        * parts[1] -> date
+        * parts[2] -> game duration
+        */
+        String[] parts = line.split("\\|");
+
+        // Fancy up the date
+        parts[1] = parts[1].replace(";", " ");
+
+        entry.put("id", parts[0]);
+        entry.put("date", parts[1]);
+        entry.put("duration", Double.parseDouble(parts[2]));
+
+        return entry;
+    }
+
+    private int getTimePosition(String id) {
 
 
         return 5;
     }
 
+    private int getTimePosition(double gameTime) {
+
+
+        return 3;
+    }
+
     private String generateDbEntry(Double gameDuration) {
         String date = this.getDateTime();
+        String id = UUID.randomUUID().toString();
 
-        return (getString(R.string.leaderboard_db_entry, date, gameDuration) + "\n");
+        return (getString(R.string.leaderboard_db_entry, id, date, gameDuration) + "\n");
     }
 
     private String getDateTime() {

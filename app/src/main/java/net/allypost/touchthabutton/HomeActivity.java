@@ -18,7 +18,6 @@ public class HomeActivity extends AppCompatActivity {
         Intent myIntent = new Intent(this, PlayActivity.class);
 //        myIntent.putExtra("key", "PASTA"); //Optional parameters
         startActivity(myIntent);
-        finish();
     }
 
     public void showLeaderboard(View view) {

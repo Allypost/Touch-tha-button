@@ -9,7 +9,8 @@
     <!-- </HOME> -->
 
     <!-- <LEADERBOARD> -->
-    <string name="leaderboard_db_entry">%1$s|%2$f</string>
+    <string name="leaderboard_db_entry">%1$s|%2$s|%3$f</string>
+    <string name="leaderboard_back">Natrag</string>
     <!-- </LEADERBOARD> -->
 
 
