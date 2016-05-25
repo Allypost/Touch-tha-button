@@ -9,6 +9,8 @@
     <!-- </HOME> -->
 
 
-    <!-- SMTH -->
-    <string name="title_activity_display_message">My Message</string>
+    <!-- <MISC> -->
+    <string name="blank_int">%d</string>
+    <string name="blank_float">%f</string>
+    <!-- <MISC> -->
 </resources>

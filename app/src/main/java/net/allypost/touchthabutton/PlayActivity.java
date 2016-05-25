@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -89,7 +88,7 @@ public class PlayActivity extends AppCompatActivity {
 
         int remaining = 11 - count;
 
-        button.setText("" + remaining);
+        button.setText(getString(R.string.blank_int, remaining));
     }
 
     private void moveButtonRandomly(Button button) {
@@ -117,7 +116,7 @@ public class PlayActivity extends AppCompatActivity {
 
     private void initGame() {
         this.setStartTime(System.nanoTime());
-        Toast.makeText(getApplicationContext(), "START GAME", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "START GAME", Toast.LENGTH_SHORT).show();
     }
 
     private void finishGame() {
@@ -128,9 +127,8 @@ public class PlayActivity extends AppCompatActivity {
         long currentTime = this.calculateEndTime();
         long startTime = this.getStartTime();
 
-        double gameDuration = (double) (currentTime - startTime) / 1000000000.0;
 
-        return gameDuration;
+        return ((double) (currentTime - startTime) / 1000000000.0);
     }
 
     private void transferToLeaderboard() {
@@ -138,7 +136,7 @@ public class PlayActivity extends AppCompatActivity {
 
         Intent myIntent = new Intent(this, LeaderboardActivity.class);
 
-        String intentDataKey = this.getTimeKey();
+        String intentDataKey = getTimeKey();
 
         myIntent.putExtra(intentDataKey, gameDuration); //Optional parameters
 
