@@ -80,27 +80,10 @@ public class LeaderboardActivity extends AppCompatActivity {
             InputStreamReader inReader = new InputStreamReader(inStream);
             BufferedReader buffReader = new BufferedReader(inReader);
 
-            String line;
-
-            List<Hashtable> lines = new ArrayList<>();
-
-            do {
-
-                line = buffReader.readLine();
-                if (line != null) {
-                    Hashtable entry = this.parseDbEntry(line);
-                    lines.add(entry);
-                }
-
-            } while (line != null);
-
-            if (lines.get(lines.size() - 1) == null)
-                lines.remove(lines.size() - 1);
+            List<Hashtable> lines = this.parseDbEntries(buffReader);
 
             System.out.println("\t\t\t\t\tLEADERBOARD" + lines.toString());
         } catch (java.io.FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (java.io.IOException e) {
             e.printStackTrace();
         }
     }
@@ -123,6 +106,31 @@ public class LeaderboardActivity extends AppCompatActivity {
         entry.put("duration", Double.parseDouble(parts[2]));
 
         return entry;
+    }
+
+    private List<Hashtable> parseDbEntries(BufferedReader buffReader) {
+        String line = "";
+
+        List<Hashtable> lines = new ArrayList<>();
+
+        do {
+            try {
+                line = buffReader.readLine();
+            } catch (java.io.IOException e) {
+                e.printStackTrace();
+                continue;
+            }
+            if (line != null) {
+                Hashtable entry = this.parseDbEntry(line);
+                lines.add(entry);
+            }
+
+        } while (line != null);
+
+        if (lines.get(lines.size() - 1) == null)
+            lines.remove(lines.size() - 1);
+
+        return lines;
     }
 
     private int getTimePosition(String id) {
