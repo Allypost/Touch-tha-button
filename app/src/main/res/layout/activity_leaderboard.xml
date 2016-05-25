@@ -18,7 +18,34 @@
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
         android:background="@color/colorPrimaryLightest"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="35sp"
+            android:layout_marginTop="5sp"
+            android:gravity="center"
+            android:text="1. 2016-5-26 00:27 - 3.998"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35sp"
+            android:layout_marginTop="5sp"
+            android:gravity="center"
+            android:text="2. 2016-5-26 00:27 - 3.998"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:background="@color/colorPrimaryLighter"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35sp"
+            android:layout_marginTop="5sp"
+            android:gravity="center"
+            android:text="3. 2016-5-26 00:27 - 3.998"
+            android:textSize="20sp" />-->
 
     </LinearLayout>
 
@@ -33,9 +60,9 @@
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
             android:background="@color/colorPrimaryLight"
+            android:onClick="goBack"
             android:text="@string/leaderboard_back"
             android:textColor="#fff"
-            android:onClick="goBack"
             android:textSize="30sp" />
     </RelativeLayout>
 </RelativeLayout>
