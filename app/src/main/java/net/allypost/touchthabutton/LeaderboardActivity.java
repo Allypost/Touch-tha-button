@@ -1,9 +1,11 @@
 package net.allypost.touchthabutton;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -30,11 +32,11 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         if (gameDuration != 0.0) {
             Toast.makeText(getApplicationContext(), "GAME LASTED " + (Math.round(gameDuration * 100) / 100.0) + "s", Toast.LENGTH_LONG).show();
-            System.out.println("\t\t\tDB ENTRY:\t" + this.generateDbEntry(gameDuration));
             this.saveLeaderboardEntry(gameDuration);
-            this.getLeaderboard();
 //            System.out.println("\t\t\tDB:\t" + );
         }
+
+        this.getLeaderboard();
 
     }
 
@@ -149,18 +151,14 @@ public class LeaderboardActivity extends AppCompatActivity {
         return sdfDate.format(now);
     }
 
+    public void goBack(View view) {
+        Intent myIntent = new Intent(this, HomeActivity.class);
+        startActivity(myIntent);
+        finish();
+    }
+
     public String getAndroidID() {
         return Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-    }
-
-    private class LeaderboardEntries {
-        public Double time;
-        public String date;
-
-        public LeaderboardEntries(Double time, String date) {
-            this.time = time;
-            this.date = date;
-        }
     }
 }
