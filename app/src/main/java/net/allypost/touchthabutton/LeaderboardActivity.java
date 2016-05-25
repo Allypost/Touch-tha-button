@@ -15,6 +15,13 @@ public class LeaderboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
+        double gameDuration = this.getGameDuration(savedInstanceState);
+
+        if (gameDuration != 0.0)
+            Toast.makeText(getApplicationContext(), "GAME LASTED " + (Math.round(gameDuration * 100) / 100.0) + "s", Toast.LENGTH_LONG).show();
+    }
+
+    private double getGameDuration(Bundle savedInstanceState) {
         double gameDuration = 0.0;
 
         if (savedInstanceState == null) {
@@ -26,8 +33,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             gameDuration = savedInstanceState.getDouble(PlayActivity.getTimeKey(), 0.0);
         }
 
-        if (gameDuration != 0.0)
-            Toast.makeText(getApplicationContext(), "GAME LASTED " + (Math.round(gameDuration * 100) / 100.0) + "s", Toast.LENGTH_LONG).show();
+        return gameDuration;
     }
 
     private void saveLeaderboardEntry() {
