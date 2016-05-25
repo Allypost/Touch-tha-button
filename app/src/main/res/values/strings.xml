@@ -8,6 +8,10 @@
     <string name="home_exit">Izlaz</string>
     <!-- </HOME> -->
 
+    <!-- <LEADERBOARD> -->
+    <string name="leaderboard_db_entry">%1$s|%2$f</string>
+    <!-- </LEADERBOARD> -->
+
 
     <!-- <MISC> -->
     <string name="blank_int">%d</string>
