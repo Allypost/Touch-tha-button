@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 
@@ -14,14 +15,19 @@ public class LeaderboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
+        double gameDuration = 0.0;
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                System.out.println(extras.get(PlayActivity.getTimeKey()));
+                gameDuration = extras.getDouble(PlayActivity.getTimeKey(), 0.0);
             }
         } else {
-            System.out.println(savedInstanceState.getSerializable(PlayActivity.getTimeKey()));
+            gameDuration = savedInstanceState.getDouble(PlayActivity.getTimeKey(), 0.0);
         }
+
+        if (gameDuration != 0.0)
+            Toast.makeText(getApplicationContext(), "GAME LASTED " + (Math.round(gameDuration * 100) / 100.0) + "s", Toast.LENGTH_LONG).show();
     }
 
     private void saveLeaderboardEntry() {

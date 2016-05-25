@@ -121,10 +121,6 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     private void finishGame() {
-        double gameDuration = this.calculateGameTime();
-
-        Toast.makeText(getApplicationContext(), "GAME LASTED " + (Math.round(gameDuration * 100) / 100.0) + "s", Toast.LENGTH_LONG).show();
-
         this.transferToLeaderboard();
     }
 
