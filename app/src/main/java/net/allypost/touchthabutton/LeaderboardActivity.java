@@ -109,9 +109,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         String date = (String) entry.get("date");
         String gameTime = String.format(Locale.UK, "%.3f", gameDuration);
 
-        String entryText = gamePlace + ". " + date + " - " + gameTime + "s";
-
-        return entryText;
+        return (gamePlace + ". " + date + " - " + gameTime + "s");
     }
 
     private double getGameDuration(Bundle savedInstanceState) {
@@ -150,9 +148,8 @@ public class LeaderboardActivity extends AppCompatActivity {
     }
 
     private List<Hashtable> getLeaderboard() {
-        List<Hashtable> lines = null;
-
         try {
+            List<Hashtable> lines;
             String location = this.getStorageLocation() + "/leaderboard.db";
             InputStream inStream = new FileInputStream(location);
             InputStreamReader inReader = new InputStreamReader(inStream);
@@ -163,8 +160,8 @@ public class LeaderboardActivity extends AppCompatActivity {
             return lines;
         } catch (java.io.FileNotFoundException e) {
             e.printStackTrace();
+            return null;
         }
-        return lines;
     }
 
     private List<Hashtable> getSortedLeaderboard() {
@@ -300,9 +297,9 @@ public class LeaderboardActivity extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        Intent myIntent = new Intent(this, HomeActivity.class);
-        startActivity(myIntent);
-        finish();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     public String getAndroidID() {
