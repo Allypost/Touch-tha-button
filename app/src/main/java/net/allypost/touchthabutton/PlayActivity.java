@@ -116,7 +116,6 @@ public class PlayActivity extends AppCompatActivity {
 
     private void initGame() {
         this.setStartTime(System.nanoTime());
-//        Toast.makeText(getApplicationContext(), "START GAME", Toast.LENGTH_SHORT).show();
     }
 
     private void finishGame() {
@@ -138,7 +137,7 @@ public class PlayActivity extends AppCompatActivity {
 
         String intentDataKey = getTimeKey();
 
-        intent.putExtra(intentDataKey, gameDuration); //Optional parameters
+        intent.putExtra(intentDataKey, gameDuration);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         startActivity(intent);
