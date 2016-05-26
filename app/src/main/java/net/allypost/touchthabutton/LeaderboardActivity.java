@@ -79,7 +79,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         textView.setText(text);
 
-        textView = styleLeaderboardEntry(textView, special);
+        textView = this.styleLeaderboardEntry(textView, special);
 
         layout.addView(textView);
     }
@@ -89,6 +89,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         textView.setTextSize(16);
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(getResources().getColor(R.color.colorPrimary));
+        textView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLightest));
 
         if (special) {
             textView.setTypeface(Typeface.DEFAULT_BOLD);
