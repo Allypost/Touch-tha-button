@@ -134,14 +134,14 @@ public class PlayActivity extends AppCompatActivity {
     private void transferToLeaderboard() {
         double gameDuration = this.calculateGameTime();
 
-        Intent myIntent = new Intent(this, LeaderboardActivity.class);
+        Intent intent = new Intent(this, LeaderboardActivity.class);
 
         String intentDataKey = getTimeKey();
 
-        myIntent.putExtra(intentDataKey, gameDuration); //Optional parameters
+        intent.putExtra(intentDataKey, gameDuration); //Optional parameters
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        startActivity(myIntent);
-        finish();
+        startActivity(intent);
     }
 
 }
