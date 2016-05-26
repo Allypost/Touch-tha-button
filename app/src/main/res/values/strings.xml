@@ -11,6 +11,8 @@
     <!-- <LEADERBOARD> -->
     <string name="leaderboard_db_entry">%1$s|%2$s|%3$.9f</string>
     <string name="leaderboard_back">Natrag</string>
+    <string name="leaderboard_empty_entry">There are currently no entries</string>
+    <string name="leaderboard_entry">%1$d. %2$s - %3$.3f</string>
     <!-- </LEADERBOARD> -->
 
 

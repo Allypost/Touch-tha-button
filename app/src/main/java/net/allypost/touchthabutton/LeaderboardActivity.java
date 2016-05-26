@@ -9,11 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -33,6 +35,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_leaderboard);
 
         String id = "";
@@ -49,9 +52,19 @@ public class LeaderboardActivity extends AppCompatActivity {
         }
 
         List<Hashtable> leaderboard = this.getSortedLeaderboard();
+
+        if (leaderboard == null) {
+            this.goBackLeaderboardEmpty();
+            return;
+        }
+
         int numEntries = leaderboard.size() > 5 ? 5 : leaderboard.size();
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.leaderboardContainer);
+
+        if (numEntries == 0) {
+            this.renderLeaderboardEmpty(layout);
+        }
 
         for (int i = 0; i < numEntries; i++) {
             Hashtable entry = leaderboard.get(i);
@@ -84,6 +97,16 @@ public class LeaderboardActivity extends AppCompatActivity {
         layout.addView(textView);
     }
 
+    private void renderLeaderboardEmpty(LinearLayout layout) {
+        TextView textView = new TextView(this);
+
+        textView.setText(R.string.leaderboard_empty_entry);
+
+        textView = this.styleLeaderboardEntry(textView, true);
+
+        layout.addView(textView);
+    }
+
     private TextView styleLeaderboardEntry(TextView textView, boolean special) {
         textView.setHeight(this.spToPx(35));
         textView.setTextSize(16);
@@ -108,9 +131,8 @@ public class LeaderboardActivity extends AppCompatActivity {
     private String getLeaderboardEntryText(Hashtable entry, int gamePlace) {
         double gameDuration = (double) entry.get("duration");
         String date = (String) entry.get("date");
-        String gameTime = String.format(Locale.UK, "%.3f", gameDuration);
 
-        return (gamePlace + ". " + date + " - " + gameTime + "s");
+        return getString(R.string.leaderboard_entry, gamePlace, date, gameDuration);
     }
 
     private double getGameDuration(Bundle savedInstanceState) {
@@ -156,12 +178,14 @@ public class LeaderboardActivity extends AppCompatActivity {
             InputStreamReader inReader = new InputStreamReader(inStream);
             BufferedReader buffReader = new BufferedReader(inReader);
 
+            System.out.println("|>\t\t\tBEFORE PARSE DB ENTRIES");
             lines = this.parseDbEntries(buffReader);
 
             return lines;
         } catch (java.io.FileNotFoundException e) {
             e.printStackTrace();
-            return null;
+            this.createLeaderboard();
+            return this.getLeaderboard();
         }
     }
 
@@ -172,6 +196,10 @@ public class LeaderboardActivity extends AppCompatActivity {
     }
 
     private List<Hashtable> sortLeaderboard(List<Hashtable> leaderboard) {
+
+        if (leaderboard == null)
+            return null;
+
         Collections.sort(leaderboard, new Comparator<Hashtable>() {
             @Override
             public int compare(Hashtable lhs, Hashtable rhs) {
@@ -188,6 +216,19 @@ public class LeaderboardActivity extends AppCompatActivity {
         });
 
         return leaderboard;
+    }
+
+    private boolean createLeaderboard() {
+        String filename = this.getStorageLocation() + "/leaderboard.db";
+        try {
+            File f = new File(filename);
+            f.createNewFile();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     private String getIdFromEntry(String dbEntry) {
@@ -222,18 +263,23 @@ public class LeaderboardActivity extends AppCompatActivity {
         List<Hashtable> lines = new ArrayList<>();
 
         do {
+
             try {
                 line = buffReader.readLine();
             } catch (java.io.IOException e) {
                 e.printStackTrace();
                 continue;
             }
+
             if (line != null) {
                 Hashtable entry = this.parseDbEntry(line);
                 lines.add(entry);
             }
 
         } while (line != null);
+
+        if (lines.size() < 1)
+            return lines;
 
         if (lines.get(lines.size() - 1) == null)
             lines.remove(lines.size() - 1);
@@ -301,6 +347,12 @@ public class LeaderboardActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
+    }
+
+    private void goBackLeaderboardEmpty() {
+        Toast.makeText(getApplicationContext(), "There are no leaderboard entries!", Toast.LENGTH_LONG).show();
+        this.goBack(null);
     }
 
     public String getAndroidID() {
