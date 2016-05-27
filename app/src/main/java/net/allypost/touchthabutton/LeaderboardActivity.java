@@ -178,7 +178,6 @@ public class LeaderboardActivity extends AppCompatActivity {
             InputStreamReader inReader = new InputStreamReader(inStream);
             BufferedReader buffReader = new BufferedReader(inReader);
 
-            System.out.println("|>\t\t\tBEFORE PARSE DB ENTRIES");
             lines = this.parseDbEntries(buffReader);
 
             return lines;
