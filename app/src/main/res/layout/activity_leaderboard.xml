@@ -11,53 +11,107 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="net.allypost.touchthabutton.LeaderboardActivity">
 
-    <LinearLayout
-        android:id="@+id/leaderboardContainer"
+    <ScrollView
+        android:id="@+id/leaderboardContainerScroller"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="60dp"
-        android:background="@color/colorPrimaryLightest"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:layout_height="350dp"
+        android:fadeScrollbars="false">
 
-        <!--<TextView
+        <LinearLayout
+            android:id="@+id/leaderboardContainer"
             android:layout_width="match_parent"
-            android:layout_height="35sp"
-            android:layout_marginTop="5sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimaryLightest"
             android:gravity="center"
-            android:text="1. 2016-5-26 00:27 - 3.998"
-            android:textSize="20sp" />
+            android:orientation="vertical"
+            android:padding="15dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="35sp"
-            android:layout_marginTop="5sp"
-            android:gravity="center"
-            android:text="2. 2016-5-26 00:27 - 3.998"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:background="@color/colorPrimaryLighter"/>
+            <!--<TextView
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="1. 2016-5-26 00:27 - 3.998"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="35sp"
-            android:layout_marginTop="5sp"
-            android:gravity="center"
-            android:text="3. 2016-5-26 00:27 - 3.998"
-            android:textSize="20sp" />-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:layout_marginTop="5sp"
+                android:background="@color/colorPrimaryLighter"
+                android:gravity="center"
+                android:text="2. 2016-5-26 00:27 - 3.998"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="3. 2016-5-26 00:27 - 3.998"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="1. 2016-5-26 00:27 - 3.998"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="2. 2016-5-26 00:27 - 3.998"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="3. 2016-5-26 00:27 - 3.998"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="1. 2016-5-26 00:27 - 3.998"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="2. 2016-5-26 00:27 - 3.998"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:text="3. 2016-5-26 00:27 - 3.998"
+                android:textSize="20sp" />-->
+
+        </LinearLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/leaderboardContainer"
+        android:layout_below="@+id/leaderboardContainerScroller"
         android:layout_margin="20dp"
         android:gravity="bottom">
 

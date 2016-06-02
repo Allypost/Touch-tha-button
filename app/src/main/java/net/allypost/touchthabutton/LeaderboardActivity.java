@@ -32,6 +32,8 @@ import java.util.UUID;
 
 public class LeaderboardActivity extends AppCompatActivity {
 
+    public static int maxEntries = 25;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             return;
         }
 
-        int numEntries = leaderboard.size() > 5 ? 5 : leaderboard.size();
+        int numEntries = leaderboard.size() > maxEntries ? maxEntries : leaderboard.size();
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.leaderboardContainer);
 
@@ -76,7 +78,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             this.renderLeaderboardEntry(layout, entryText, place == gamePlace);
         }
 
-        if (gameDuration != 0.0 && gamePlace > 5) {
+        if (gameDuration != 0.0 && gamePlace > maxEntries) {
             Hashtable entry = getDbEntry(id);
 
             if (entry != null) {
@@ -84,6 +86,18 @@ public class LeaderboardActivity extends AppCompatActivity {
 
                 this.renderLeaderboardEntry(layout, entryText, true);
             }
+        }
+
+        if (gamePlace != 0) {
+            if (gamePlace > numEntries)
+                gamePlace = numEntries;
+
+            if ((gamePlace + 1) <= numEntries)
+                gamePlace++;
+
+            TextView entry = (TextView) layout.getChildAt(gamePlace - 1);
+
+            entry.getParent().getParent().requestChildFocus(entry, entry);
         }
     }
 
